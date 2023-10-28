@@ -19,63 +19,48 @@ const slides = [
 ];
 
 const imageSlide = document.querySelector(".banner-img");
-console.log(imageSlide);
 const bannerTitle = document.querySelector("#banner p");
-console.log(bannerTitle);
 const dotSlide = document.querySelectorAll(".dots .dot");
-console.log(dotSlide.length);
 const nextImageLeftArrow = document.querySelector(".arrow_left");
 const nextImageRightArrow = document.querySelector(".arrow_right");
 
 let indexImage = 0;
-const time = 5000;
 
-console.log(slides.length - 1); // 3
+function displayImageAndTitle() {
+  imageSlide.src = `./assets/images/slideshow/${slides[indexImage].image}`;
+  bannerTitle.innerHTML = `${slides[indexImage].tagLine}`;
+}
+
+function nextDot() {
+  for (let i = 0; i < dotSlide.length; i++) {
+    if (dotSlide[i].getAttribute("data-clic") - 1 === indexImage) {
+      dotSlide[i].classList.add("dot_selected");
+    } else {
+      dotSlide[i].classList.remove("dot_selected");
+    }
+  }
+}
 
 const nextImageRight = () => {
   if (indexImage < 3) {
     indexImage++;
-    console.log(indexImage);
-    console.log("Image vers la gauche");
-    imageSlide.src = `./assets/images/slideshow/${slides[indexImage].image}`;
-    console.log(imageSlide);
-    bannerTitle.innerHTML = `${slides[indexImage].tagLine}`;
+    displayImageAndTitle();
   } else if (indexImage === 3) {
     indexImage = 0;
-    imageSlide.src = `./assets/images/slideshow/${slides[indexImage].image}`;
-    console.log(imageSlide);
-    bannerTitle.innerHTML = `${slides[indexImage].tagLine}`;
+    displayImageAndTitle();
   }
-  for (let i = 0; i < dotSlide.length; i++) {
-    if (dotSlide[i].getAttribute("data-clic") - 1 === indexImage) {
-      dotSlide[i].classList.add("dot_selected");
-    } else {
-      dotSlide[i].classList.remove("dot_selected");
-    }
-  }
+  nextDot();
 };
-
-setInterval(nextImageRight, time);
 
 const nextImageLeft = () => {
   if (indexImage > 0) {
     indexImage--;
-    console.log("Image vers la gauche");
-    imageSlide.src = `./assets/images/slideshow/${slides[indexImage].image}`;
-    bannerTitle.innerHTML = `${slides[indexImage].tagLine}`;
+    displayImageAndTitle();
   } else if (indexImage === 0) {
     indexImage = 3;
-    imageSlide.src = `./assets/images/slideshow/${slides[indexImage].image}`;
-    console.log(imageSlide);
-    bannerTitle.innerHTML = `${slides[indexImage].tagLine}`;
+    displayImageAndTitle();
   }
-  for (let i = 0; i < dotSlide.length; i++) {
-    if (dotSlide[i].getAttribute("data-clic") - 1 === indexImage) {
-      dotSlide[i].classList.add("dot_selected");
-    } else {
-      dotSlide[i].classList.remove("dot_selected");
-    }
-  }
+  nextDot();
 };
 nextImageLeftArrow.addEventListener("click", nextImageLeft);
 nextImageRightArrow.addEventListener("click", nextImageRight);

@@ -2,7 +2,7 @@
 
 # Ajouter un carrousel
 
-# Vusualisation du site
+# Visualisation du site
 
 # https://ceddevstudent89.github.io/Print-it-Carrousel/
 
